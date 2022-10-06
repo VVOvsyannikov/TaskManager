@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  StateMachines::Machine.ignore_method_conflicts = true
+  # StateMachines::Machine.ignore_method_conflicts = true
 
   belongs_to :author, class_name: 'User'
   belongs_to :assignee, class_name: 'User', optional: true
@@ -18,7 +18,7 @@ class Task < ApplicationRecord
       transition [:new_task, :in_qa, :in_code_review] => :in_development
     end
 
-    event :test do
+    event :testing do
       transition in_development: :in_qa
     end
 
