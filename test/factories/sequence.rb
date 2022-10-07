@@ -6,6 +6,4 @@ FactoryBot.define do
   sequence :email do |n|
     "person#{n}@example.com"
   end
-
-  # sequence :state, [:new_task, :archived, :in_development, :in_qa, :in_code_review, :ready_for_release, :released].sample
 end
