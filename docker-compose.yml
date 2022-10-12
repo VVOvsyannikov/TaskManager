@@ -12,6 +12,7 @@ services:
       - 3000:3000
       - 3001:3001
       - 3002:3002
+      - 8080:8080
     depends_on:
       - db
     environment: &web-environment
