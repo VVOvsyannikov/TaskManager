@@ -20,6 +20,7 @@ gem 'kaminari'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'main'
 gem 'responders'
 gem 'active_model_serializers'
+gem 'js-routes'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
