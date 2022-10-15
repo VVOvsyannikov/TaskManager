@@ -12,6 +12,8 @@ module TaskManager
     config.load_defaults 6.1
     config.assets.paths << Rails.root.join('node_modules')
 
+    config.web_console.permissions = '172.21.0.1'
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
