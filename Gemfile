@@ -21,6 +21,7 @@ gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'main'
 gem 'responders'
 gem 'active_model_serializers'
 gem 'js-routes'
+gem 'webpacker-react'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
