@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import KanbanBoard from '@asseinfo/react-kanban';
+import '@asseinfo/react-kanban/dist/styles.css';
 import { propOr } from 'ramda';
 
-import Task from 'components/Task.js';
-import TasksRepository from 'repositories/TasksRepository';
+import Task from '../Task';
+import TasksRepository from '../../repositories/TasksRepository';
 
 const STATES = [
   { key: 'new_task', value: 'New' },
@@ -25,22 +26,8 @@ const initialBoard = {
 };
 
 function TaskBoard() {
-  // const [board, setBoard] = useState(initialBoard);
-  const setBoard = useState(initialBoard);
+  const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
-
-  const generateBoard = () => {
-    const board = {
-      columns: STATES.map(({ key, value }) => ({
-        id: key,
-        title: value,
-        cards: propOr({}, 'cards', boardCards[key]),
-        meta: propOr({}, 'meta', boardCards[key]),
-      })),
-    };
-
-    setBoard(board);
-  };
 
   const loadColumn = (state, page, perPage) =>
     TasksRepository.index({
@@ -62,10 +49,24 @@ function TaskBoard() {
     STATES.map(({ key }) => loadColumnInitial(key));
   };
 
-  useEffect(() => loadBoard(), []);
-  useEffect(() => generateBoard(), [boardCards]);
+  const generateBoard = () => {
+    const newBoard = {
+      columns: STATES.map(({ key, value }) => ({
+        key,
+        id: key,
+        title: value,
+        cards: propOr({}, 'cards', boardCards[key]),
+        meta: propOr({}, 'meta', boardCards[key]),
+      })),
+    };
 
-  return <KanbanBoard renderCard={(card) => <Task task={card} />}>{Board}</KanbanBoard>;
+    setBoard(newBoard);
+  };
+
+  // useEffect(() => loadBoard(), [board]);
+  // useEffect(() => generateBoard(), [boardCards]);
+
+  return <KanbanBoard renderCard={(cards) => <Task task={cards} />}>{board}</KanbanBoard>;
 }
 
 export default TaskBoard;
