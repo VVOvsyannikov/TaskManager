@@ -5,6 +5,7 @@ import { propOr } from 'ramda';
 
 import Task from '../Task';
 import TasksRepository from '../../repositories/TasksRepository';
+import ColumnHeader from '../ColumnHeader';
 
 const STATES = [
   { key: 'new_task', value: 'New' },
@@ -45,6 +46,15 @@ function TaskBoard() {
     });
   };
 
+  const loadColumnMore = (state, page = 1, perPage = 10) => {
+    loadColumn(state, page, perPage).then(({ data }) => {
+      setBoardCards((prevState) => ({
+        ...prevState,
+        [state]: { cards: [...prevState[state].cards, ...data.items], meta: data.meta },
+      }));
+    });
+  };
+
   const loadBoard = () => {
     STATES.map(({ key }) => loadColumnInitial(key));
   };
@@ -52,21 +62,26 @@ function TaskBoard() {
   const generateBoard = () => {
     const newBoard = {
       columns: STATES.map(({ key, value }) => ({
-        key,
         id: key,
         title: value,
         cards: propOr({}, 'cards', boardCards[key]),
         meta: propOr({}, 'meta', boardCards[key]),
       })),
     };
-
     setBoard(newBoard);
   };
 
-  // useEffect(() => loadBoard(), [board]);
-  // useEffect(() => generateBoard(), [boardCards]);
+  useEffect(() => loadBoard(), []);
+  useEffect(() => generateBoard(), [boardCards]);
 
-  return <KanbanBoard renderCard={(cards) => <Task task={cards} />}>{board}</KanbanBoard>;
+  return (
+    <KanbanBoard
+      renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
+      renderCard={(card) => <Task task={card} />}
+    >
+      {board}
+    </KanbanBoard>
+  );
 }
 
 export default TaskBoard;
