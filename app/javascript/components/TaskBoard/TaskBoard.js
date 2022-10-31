@@ -8,7 +8,8 @@ import TasksRepository from '../../repositories/TasksRepository';
 import ColumnHeader from '../ColumnHeader';
 import NewTaskButton from '../NewTaskButton';
 import AddPopup from '../AddPopup';
-import TaskForm from '../../forms/TaskForm';
+import TaskForm from '../../forms/TaskForm/TaskForm';
+import EditPopup from '../EditPopup';
 
 const STATES = [
   { key: 'new_task', value: 'New' },
@@ -32,12 +33,14 @@ const initialBoard = {
 const MODES = {
   ADD: 'add',
   NONE: 'none',
+  EDIT: 'edit',
 };
 
 function TaskBoard() {
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
   const [mode, setMode] = useState(MODES.NONE);
+  const [openedTaskId, setOpenedTaskId] = useState(null);
 
   const loadColumn = (state, page, perPage) =>
     TasksRepository.index({
@@ -100,13 +103,37 @@ function TaskBoard() {
     setMode(MODES.ADD);
   };
 
+  const handleOpenEditPopup = (task) => {
+    setOpenedTaskId(task.id);
+    setMode(MODES.EDIT);
+  };
+
   const handleClose = () => {
     setMode(MODES.NONE);
+    setOpenedTaskId(null);
   };
 
   const handleTaskCreate = (params) => {
     const attributes = TaskForm.attributesToSubmit(params);
     return TasksRepository.create(attributes).then(({ data: { task } }) => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
+  const loadTask = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
+  const handleUpdateTask = (task) => {
+    const attributes = TaskForm.attributesToSubmit(task);
+
+    return TasksRepository.update(task.id, attributes).then(() => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
+  const handleDstroyTask = (task) => {
+    TasksRepository.destroy(task.id).then(() => {
       loadColumnInitial(task.state);
       handleClose();
     });
@@ -121,11 +148,20 @@ function TaskBoard() {
       <KanbanBoard
         onCardDragEnd={handleCardDragEnd}
         renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
-        renderCard={(card) => <Task task={card} />}
+        renderCard={(card) => <Task onClick={handleOpenEditPopup} task={card} />}
       >
         {board}
       </KanbanBoard>
       {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
+      {mode === MODES.EDIT && (
+        <EditPopup
+          onLoadCard={loadTask}
+          onCardDestroy={handleDstroyTask}
+          onCardUpdate={handleUpdateTask}
+          onClose={handleClose}
+          cardId={openedTaskId}
+        />
+      )}
     </>
   );
 }

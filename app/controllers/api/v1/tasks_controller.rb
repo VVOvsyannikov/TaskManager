@@ -24,9 +24,13 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def update
     task = Task.find(params[:id])
-    task.state_event = params[:state_event]
-    task.save
-    
+    if params[:state_event]
+      task.state_event = params[:state_event]
+      task.save
+    else
+      task.update(task_params)
+    end
+
     respond_with(task, serializer: TaskSerializer)
   end
 
@@ -40,6 +44,6 @@ class Api::V1::TasksController < Api::V1::ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :author_id, :assignee_id, :state_event, :expired_at)
+    params.require(:task).permit(:name, :description, :author_id, :assignee_id, :state_event)
   end
 end
