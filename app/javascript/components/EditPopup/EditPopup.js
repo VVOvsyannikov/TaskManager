@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'ramda';
 
-import Form from '../../forms/EditForm/EditForm';
-
-import useStyles from './useStyles';
-
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,6 +11,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import useStyles from './useStyles';
+import Form from './EditForm/EditForm';
 
 function EditPopup({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate }) {
   const [task, setTask] = useState(null);

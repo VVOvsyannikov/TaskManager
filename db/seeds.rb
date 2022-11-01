@@ -14,6 +14,6 @@ end
 states = ['new_task', 'in_development', 'in_qa', 'in_code_review', 'ready_for_release', 'released', 'archived']
 states.each do |state|
   12.times do |i|
-    Task.create!(name: "Test task #{i}", description: "This is a test task #{i} with state #{state}", author_id: 1, assignee_id: 7, state: state )
+    Task.create!(name: "Test task #{i}", description: "This is a test task #{i} with state #{state}", author_id: User.find_by(type: "Manager").id, assignee_id: User.find_by(type: "Developer").id, state: state )
   end
 end
