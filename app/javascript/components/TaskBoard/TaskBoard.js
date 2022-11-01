@@ -4,11 +4,11 @@ import '@asseinfo/react-kanban/dist/styles.css';
 import { propOr } from 'ramda';
 
 import Task from '../Task';
-import TasksRepository from '../../repositories/TasksRepository';
+import TasksRepository from 'repositories/TasksRepository';
 import ColumnHeader from '../ColumnHeader';
 import NewTaskButton from '../NewTaskButton';
 import AddPopup from '../AddPopup';
-import TaskForm from '../../forms/TaskForm/TaskForm';
+import TaskForm from 'forms/TaskForm/TaskForm';
 import EditPopup from '../EditPopup';
 
 const STATES = [

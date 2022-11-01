@@ -12,8 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 
-import TaskForm from '../../forms/TaskForm/TaskForm.js';
-
+import TaskForm from 'forms/TaskForm/TaskForm';
 import useStyles from './useStyles';
 
 function AddPopup({ onClose, onCreateCard }) {

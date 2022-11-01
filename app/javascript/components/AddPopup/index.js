@@ -1,3 +1,3 @@
-import AddPopup from './AddPopup.js';
+import AddPopup from './AddPopup';
 
 export default AddPopup;

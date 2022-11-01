@@ -1,3 +1,3 @@
-import EditPopup from './EditPopup.js';
+import EditPopup from './EditPopup';
 
 export default EditPopup;

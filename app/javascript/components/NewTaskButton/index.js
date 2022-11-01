@@ -1,3 +1,3 @@
-import NewTaskButton from './NewTaskButton.js';
+import NewTaskButton from './NewTaskButton';
 
 export default NewTaskButton;
