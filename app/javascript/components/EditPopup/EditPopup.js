@@ -12,8 +12,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import Form from './EditForm';
 import useStyles from './useStyles';
-import Form from './EditForm/EditForm';
 
 function EditPopup({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate }) {
   const [task, setTask] = useState(null);

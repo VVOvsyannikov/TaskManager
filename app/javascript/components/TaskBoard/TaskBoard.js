@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import KanbanBoard from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Switch from '@material-ui/core/Switch';
 import { propOr } from 'ramda';
 
-import Task from '../Task';
 import TasksRepository from 'repositories/TasksRepository';
-import ColumnHeader from '../ColumnHeader';
-import NewTaskButton from '../NewTaskButton';
-import AddPopup from '../AddPopup';
-import TaskForm from 'forms/TaskForm/TaskForm';
-import EditPopup from '../EditPopup';
+import Task from 'components/Task';
+import ColumnHeader from 'components/ColumnHeader';
+import TaskForm from 'forms/TaskForm';
+import AddPopup from 'components/AddPopup';
+import EditPopup from 'components/EditPopup';
+
+import useStyles from './useStyles';
 
 const STATES = [
   { key: 'new_task', value: 'New' },
@@ -36,15 +40,26 @@ const MODES = {
   EDIT: 'edit',
 };
 
+const switcherModes = {
+  off: 'id ASC',
+  on: 'id DESC',
+};
+
 function TaskBoard() {
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
+  const [switcher, setSwitcher] = useState(true);
+  const styles = useStyles();
+
+  function sorting(switcherMode) {
+    return switcherMode ? switcherModes.on : switcherModes.off;
+  }
 
   const loadColumn = (state, page, perPage) =>
     TasksRepository.index({
-      q: { stateEq: state },
+      q: { stateEq: state, s: sorting(switcher) },
       page,
       perPage,
     });
@@ -132,19 +147,28 @@ function TaskBoard() {
     });
   };
 
-  const handleDstroyTask = (task) => {
+  const handleDestroyTask = (task) => {
     TasksRepository.destroy(task.id).then(() => {
       loadColumnInitial(task.state);
       handleClose();
     });
   };
 
+  const handleSortSwitcher = () => {
+    setSwitcher(!switcher);
+  };
+
   useEffect(() => loadBoard(), []);
   useEffect(() => generateBoard(), [boardCards]);
+  useEffect(() => loadBoard(), [switcher]);
 
   return (
     <>
-      <NewTaskButton onClick={handleOpenAddPopup} />
+      <Switch color="primary" defaultChecked onChange={handleSortSwitcher} />
+      Last task first
+      <Fab className={styles.addButton} color="primary" aria-label="add" onClick={handleOpenAddPopup}>
+        <AddIcon />
+      </Fab>
       <KanbanBoard
         onCardDragEnd={handleCardDragEnd}
         renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
@@ -156,7 +180,7 @@ function TaskBoard() {
       {mode === MODES.EDIT && (
         <EditPopup
           onLoadCard={loadTask}
-          onCardDestroy={handleDstroyTask}
+          onCardDestroy={handleDestroyTask}
           onCardUpdate={handleUpdateTask}
           onClose={handleClose}
           cardId={openedTaskId}
