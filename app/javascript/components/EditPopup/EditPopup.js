@@ -13,6 +13,7 @@ import Card from '@material-ui/core/Card';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Form from './EditForm';
+import TaskPresenter from 'presenters/TaskPresenter';
 import useStyles from './useStyles';
 
 function EditPopup({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate }) {
@@ -58,7 +59,7 @@ function EditPopup({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate })
               <CloseIcon />
             </IconButton>
           }
-          title={isLoading ? 'Your task is loading. Please be patient.' : `Task # ${task.id} [${task.name}]`}
+          title={isLoading ? 'Your task is loading. Please be patient.' : `Task # ${task.id} [${TaskPresenter.taskName(task)}]`}
         />
         <CardContent>
           {isLoading ? (
