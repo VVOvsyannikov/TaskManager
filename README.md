@@ -1,24 +1,39 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Учебный проект.
 
-Things you may want to cover:
+Канбан-доска для команды разработчиков.
 
-* Ruby version
+Здесь можно создавать таски, поручать их членам команды и перемещать их между колонками в соответствии с жизненным циклом проекта:
+- новая
+- в разработке
+- код-ревью
+- тестирование
+- подготовка к релизу
+- релиз
+- архив
 
-* System dependencies
+Роли пользователей: Admin, Manager, Developer
 
-* Configuration
+В демонстрационных целях авторизация присутствует только для роли Admin (скрытая админка).
 
-* Database creation
+Cоздавать и редактировать задачи могут все пльзвоатели.
 
-* Database initialization
+Приложение доступно по ссылке: https://ovsyannikov.dev/board
 
-* How to run the test suite
+Можно создать нового пользователя (менеджер, девелопер), либо зайти под админом.
+Логин: admin@mail.ru
+Пароль: admin
 
-* Services (job queues, cache servers, search engines, etc.)
+Дополнительные зависимости для деплоя:
 
-* Deployment instructions
-
-* ...
+Yarn
+./bin/yarn add webpacker-react
+yarn add @asseinfo/react-kanban
+yarn add @material-ui/core @material-ui/icons
+yarn add humps
+yarn add axios
+yarn add qs
+yarn add ramda
+yarn add prop-types
+yarn add react-select
