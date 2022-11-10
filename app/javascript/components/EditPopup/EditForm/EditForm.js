@@ -16,7 +16,7 @@ function EditForm({ errors, onChange, task }) {
     <form className={styles.root}>
       <UserSelect
         label="Author"
-        value={TaskPresenter.taskAssignee(task)}
+        value={TaskPresenter.taskAuthor(task)}
         onChange={handleChangeSelect('author')}
         isDisabled
         isRequired
