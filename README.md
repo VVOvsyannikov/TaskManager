@@ -17,23 +17,34 @@
 
 В демонстрационных целях авторизация присутствует только для роли Admin (скрытая админка).
 
-Cоздавать и редактировать задачи могут все пльзвоатели.
+Cоздавать и редактировать задачи могут все пльзователи.
 
 Приложение доступно по ссылке: https://ovsyannikov.dev/board
 
 Можно создать нового пользователя (менеджер, девелопер), либо зайти под админом.
+
 Логин: admin@mail.ru
+
 Пароль: admin
 
 Дополнительные зависимости для деплоя:
 
 Yarn
+
 ./bin/yarn add webpacker-react
+
 yarn add @asseinfo/react-kanban
+
 yarn add @material-ui/core @material-ui/icons
+
 yarn add humps
+
 yarn add axios
+
 yarn add qs
+
 yarn add ramda
+
 yarn add prop-types
+
 yarn add react-select
