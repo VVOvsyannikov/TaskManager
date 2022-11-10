@@ -26,33 +26,3 @@ Cоздавать и редактировать задачи могут все �
 Логин: admin@mail.ru
 
 Пароль: admin
-
-
-## Стек:
-
-ruby '2.7.1'
-
-rails '>= 6.1.4.4'
-
-
-## Дополнительные зависимости для деплоя:
-
-Yarn
-
-./bin/yarn add webpacker-react
-
-yarn add @asseinfo/react-kanban
-
-yarn add @material-ui/core @material-ui/icons
-
-yarn add humps
-
-yarn add axios
-
-yarn add qs
-
-yarn add ramda
-
-yarn add prop-types
-
-yarn add react-select
