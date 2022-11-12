@@ -17,3 +17,15 @@ body {
 .page-content .mdl-textfield {
   display: block;
 }
+
+.footer-header {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.footer-description {
+  font-size: 12px;
+  color: white;
+}
