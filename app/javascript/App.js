@@ -1,16 +1,13 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 
 import store from 'store';
-import { Provider } from 'react-redux';
 import TaskBoard from 'components/TaskBoard';
-// import MUITheme from 'MUITheme';
 
 function App() {
   return (
     <Provider store={store}>
-      {/* <MUITheme> */}
       <TaskBoard />
-      {/* </MUITheme> */}
     </Provider>
   );
 }
