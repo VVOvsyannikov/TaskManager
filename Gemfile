@@ -22,8 +22,6 @@ gem 'responders'
 gem 'active_model_serializers'
 gem 'js-routes'
 gem 'webpacker-react'
-gem 'simplecov-formatter-badge', require: false
-gem 'coveralls', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -43,4 +41,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'simplecov', require: false
+  gem 'simplecov-lcov', require: false
 end
