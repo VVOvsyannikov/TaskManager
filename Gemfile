@@ -22,6 +22,7 @@ gem 'responders'
 gem 'active_model_serializers'
 gem 'js-routes'
 gem 'webpacker-react'
+gem 'rollbar'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
