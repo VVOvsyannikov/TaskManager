@@ -1,5 +1,4 @@
-# Конфигурация SimpleCov, запускается через `test -c`
-if ARGV.delete("-c")
+if ENV["COVERAGE"]
   require "simplecov"
 
   SimpleCov.start :rails do
