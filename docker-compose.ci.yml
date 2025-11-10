@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     environment:
-      - COVERAGE
+      - COVERAGE=true
       - RAILS_ENV
       - DATABASE_HOST=db
       - DATABASE_USERNAME=postgres
