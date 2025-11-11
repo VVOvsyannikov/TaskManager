@@ -14,7 +14,7 @@ fi
 # Автоматическая подготовка базы для Rails
 if echo "$@" | grep -q "rails server"; then
   echo "Preparing database..."
-  bundle exec rails db:prepare
+  bundle exec rails db:prepare db:seed
 fi
 
 # Выполнение переданной команды
