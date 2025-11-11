@@ -24,8 +24,6 @@ RUN yarn install --frozen-lockfile
 ADD . $RAILS_ROOT
 ENV PATH=$RAILS_ROOT/bin:${PATH}
 
-RUN RAILS_ENV=production bundle exec rails assets:precompile
-
 EXPOSE 3000
 
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD ["sh", "-c", "RAILS_ENV=production bundle exec rails assets:precompile && bundle exec puma -C config/puma.rb"]
