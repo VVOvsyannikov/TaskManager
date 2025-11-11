@@ -21,9 +21,13 @@ RUN bundle install --without development test
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-ADD . $RAILS_ROOT
+COPY . $RAILS_ROOT
 ENV PATH=$RAILS_ROOT/bin:${PATH}
+
+RUN bundle exec rails assets:precompile
+
+ENTRYPOINT ["docker-entrypoint"]
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "RAILS_ENV=production bundle exec rails assets:precompile && bundle exec puma -C config/puma.rb"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
