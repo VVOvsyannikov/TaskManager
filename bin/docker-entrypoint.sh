@@ -1,17 +1,21 @@
-#!/bin/sh -e
+#!/bin/sh
+set -e
 
-## Проверка и установка гемов
+APP_PATH=/task_manager
+
+# Проверка и установка гемов
 bundle check || bundle install
 
-# Удаление server.pid-файла для безошибочного запуска сервера Puma
+# Удаление server.pid для безошибочного запуска Puma/Rails
 if [ -f "$APP_PATH/tmp/pids/server.pid" ]; then
   rm "$APP_PATH/tmp/pids/server.pid"
 fi
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:prepare
+# Автоматическая подготовка базы для Rails
+if echo "$@" | grep -q "rails server"; then
+  echo "Preparing database..."
+  bundle exec rails db:prepare
 fi
 
-# Выполнение переданных команд в скрипт
-exec "${@}"
+# Выполнение переданной команды
+exec "$@"

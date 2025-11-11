@@ -26,8 +26,8 @@ ENV PATH=$RAILS_ROOT/bin:${PATH}
 
 RUN bundle exec rails assets:precompile
 
-ENTRYPOINT ["docker-entrypoint"]
+ENTRYPOINT ["/task_manager/bin/docker-entrypoint.sh"]
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
