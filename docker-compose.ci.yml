@@ -4,7 +4,9 @@ services:
   db:
     image: postgres:10.3-alpine
   ci:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes: 
       - .:/task_manager
     depends_on:
