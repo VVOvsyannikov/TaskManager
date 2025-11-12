@@ -24,7 +24,7 @@ RUN yarn install --frozen-lockfile
 COPY . $RAILS_ROOT
 ENV PATH=$RAILS_ROOT/bin:${PATH}
 
-RUN RAILS_MASTER_KEY=dummy_master_key bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE=a_dummy_secret_key_base bundle exec rails assets:precompile
 
 ENTRYPOINT ["/task_manager/bin/docker-entrypoint.sh"]
 
