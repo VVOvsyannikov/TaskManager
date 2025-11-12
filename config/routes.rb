@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root :to => "web/boards#show"
-  get '/up', to: proc { [200, {}, ['OK']] }
 
   scope module: :web do
     resource :board, only: :show
