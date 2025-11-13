@@ -1,0 +1,70 @@
+service: task_manager
+image: vvovsyannikov2015/task_manager
+servers:
+  web:
+    hosts:
+      - 37.46.132.68
+
+proxy:
+  ssl: false
+  host: 37.46.132.68
+  app_port: 3000
+
+registry:
+  username: vvovsyannikov2015
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Inject ENV variables into containers (secrets come from .kamal/secrets).
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - DATABASE_PASSWORD
+  clear:
+    RAILS_ENV: production
+    DATABASE_NAME: task_manager_prod
+    DATABASE_USERNAME: postgres
+    DATABASE_HOST: task_manager-db
+    DATABASE_PORT: 5432
+
+# Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
+# "bin/kamal logs -r job" will tail logs from the first server in the job section.
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+
+
+# Use a persistent storage volume for sqlite database files and local Active Storage files.
+# Recommended to change this to a mounted volume path that is backed up off server.
+volumes:
+  - "name_storage:/task_manager/storage"
+
+asset_path: /task_manager/public/assets
+
+# Configure the image builder.
+builder:
+  arch: amd64
+
+# Use a different ssh user than root
+ssh:
+  user: vova_admin
+  port: "43921"
+
+# Use accessory services (secrets come from .kamal/secrets).
+accessories:
+  db:
+    image: postgres:17.0
+    host: 37.46.132.68
+    port: "5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: postgres
+        POSTGRES_DB: task_manager_prod
+      secret:
+        - POSTGRES_PASSWORD
+    files:
+      - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/postgresql/data

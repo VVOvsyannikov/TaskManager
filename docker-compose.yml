@@ -1,8 +1,8 @@
-version: '3.7'
-
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes: &web-volumes
       - &app-volume .:/task_manager:cached
       - ~/.ssh:/root/.ssh
