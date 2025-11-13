@@ -20,6 +20,7 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - DATABASE_PASSWORD
+    - ROLLBAR_ACCESS_TOKEN
   clear:
     RAILS_ENV: production
     DATABASE_NAME: task_manager_prod
