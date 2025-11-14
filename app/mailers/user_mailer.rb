@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  layout "mailer"
+  layout 'mailer'
 
   def task_created
     user = params[:user]
@@ -20,5 +20,13 @@ class UserMailer < ApplicationMailer
     @id = params[:id]
 
     mail(from: 'noreply@taskmanager.com', to: user.email, subject: 'Task Deleted')
+  end
+
+  def password_reset
+    user = params[:user]
+    token = params[:token]
+    @url = edit_password_reset_url(token: token)
+
+    mail(from: 'noreply@taskmanager.com', to: user.email, subject: 'Password recovery')
   end
 end

@@ -1,0 +1,8 @@
+h4 Change password
+= simple_form_for :user, url: password_reset_path, method: :patch do |f|
+  = f.input :password, label: "New password", required: true
+  = f.input :password_confirmation, label: "Password confirmation", required: true
+  = f.input :token, as: :hidden, input_html: { value: params[:token] }
+
+  p
+    = f.button :submit, "Update password", class: "btn btn-primary"
