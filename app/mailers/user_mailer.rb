@@ -1,4 +1,6 @@
 class UserMailer < ApplicationMailer
+  layout "mailer"
+
   def task_created
     user = params[:user]
     @task = params[:task]

@@ -1,1 +1,12 @@
-| Task #{@task.id} was updated
+h2 style="margin-top:0;"
+  | A task has been updated
+
+p
+  b Title:
+  |  #{@task.name}
+
+p
+  b Updated at:
+  |  #{@task.updated_at.strftime("%Y-%m-%d %H:%M")}
+
+p Check the Task Board for the latest details.

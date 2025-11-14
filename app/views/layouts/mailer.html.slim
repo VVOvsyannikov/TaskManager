@@ -1,3 +1,29 @@
+doctype html
 html
-  body
-    = yield
+  head
+    meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+    title Email template
+
+  body style="margin:0; padding:0; background-color:#efefef;"
+    table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#efefef;"
+      tr
+        td align="center" style="padding: 20px 0;"
+          table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;"
+
+            / Header
+            tr
+              td align="center" bgcolor="#3F52B5" style="padding: 30px 0;"
+                span style="color:#ffffff; font-size:20px; font-family:Arial, Helvetica, sans-serif; font-weight:bold;"
+                  | Task Board Project
+
+            / Content
+            tr
+              td style="padding: 30px; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#333333; line-height:1.5;"
+                = yield
+
+            / Footer
+            tr
+              td align="center" style="padding: 20px; font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#888888;"
+                | © #{Time.current.year} Task Board Project
+                br
+                | This is an automated email — please do not reply.
