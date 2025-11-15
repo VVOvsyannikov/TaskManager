@@ -18,7 +18,9 @@ services:
       - redis
       - sidekiq
     environment: &web-environment
+      RAILS_ENV: development
       DATABASE_HOST: db
+      DATABASE_NAME: task_manager_development
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
       BUNDLE_PATH: /bundle_cache
@@ -42,7 +44,7 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   redis:
-    image: redis:7-alpine
+    image: redis:5.0.9-alpine
 
   sidekiq:
     build:
