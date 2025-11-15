@@ -8,3 +8,5 @@ class ActiveSupport::TestCase
   include AuthHelper
   include FactoryBot::Syntax::Methods
 end
+
+Sidekiq::Testing.inline!

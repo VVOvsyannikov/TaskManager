@@ -6,7 +6,7 @@ class PasswordResetsController < ApplicationController
 
     if user
       token = user.generate_password_reset_token!
-      UserMailer.with(user: user, token: token).password_reset.deliver_later
+      SendPasswordResetNotificationJob.perform_later(user.id, token)
     end
 
     redirect_to(new_session_path, notice: 'If such an email exists, password recovery instructions have been sent.')

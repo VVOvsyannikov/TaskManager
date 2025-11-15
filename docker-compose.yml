@@ -42,10 +42,12 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   redis:
-    image: redis:5.0.9-alpine
+    image: redis:7-alpine
 
   sidekiq:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     command: bundle exec sidekiq -C /task_manager/config/sidekiq.yml
     environment: *web-environment
     volumes: *web-volumes
