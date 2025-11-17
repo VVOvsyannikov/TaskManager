@@ -63,16 +63,6 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "task_manager_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    user_name: ENV['MAILER_USERNAME'],
-    password: ENV['MAILER_PASSWORD'],
-    address: ENV['MAILER_ADDRESS'],
-    port: ENV['MAILER_PORT'],
-    domain: ENV['MAILER_DOMAIN'],
-    authentication: ENV['MAILER_AUTHENTICATION'],
-    enable_starttls_auto: true,
-  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -127,9 +117,4 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  Rails.application.routes.default_url_options = {
-    host: ENV.fetch("HOST", "localhost"),
-    port: ENV.fetch("PORT", 3000),
-    protocol: ENV.fetch("PROTOCOL", :http)
-  }
 end

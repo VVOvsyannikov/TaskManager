@@ -17,30 +17,21 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def create
     task = current_user.my_tasks.new(task_params)
-
-    if task.save
-      UserMailer.with({ user: current_user, task: task }).task_created.deliver_now
-    end
+    task.save
 
     respond_with(task, serializer: TaskSerializer, location: nil)
   end
 
   def update
     task = Task.find(params[:id])
-    if task.update(task_params)
-      UserMailer.with({ user: current_user, task: task }).task_updated.deliver_now
-    end
+    task.update(task_params)
 
     respond_with(task, serializer: TaskSerializer)
   end
 
   def destroy
-    id = params[:id]
-    task = Task.find(id)
-
-    if task.destroy
-      UserMailer.with({ user: current_user, id: id }).task_deleted.deliver_now
-    end
+    task = Task.find(params[:id])
+    task.destroy
 
     respond_with(task)
   end

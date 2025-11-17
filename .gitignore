@@ -34,4 +34,3 @@ yarn-debug.log*
 coverage
 .env
 .kamal/secrets
-.idea
