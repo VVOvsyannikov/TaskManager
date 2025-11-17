@@ -1,0 +1,6 @@
+h4 Password recovery
+= simple_form_for :user, url: password_resets_path do |f|
+  = f.input :email, label: "Email", required: true
+
+  p
+    = f.button :submit, "Send instructions", class: "btn btn-primary"
