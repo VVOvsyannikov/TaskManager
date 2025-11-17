@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
   def password_reset
     user = params[:user]
     token = params[:token]
-    @url = edit_password_reset_url(token: token)
+    @url = edit_password_resets_url(token: token)
 
     mail(from: 'noreply@taskmanager.com', to: user.email, subject: 'Password recovery')
   end
