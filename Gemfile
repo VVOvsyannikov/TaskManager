@@ -29,6 +29,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'virtus'
 gem 'webpacker', '~> 5.0'
 gem 'webpacker-react'
+gem 'rollbar'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -18,6 +18,7 @@ services:
       - redis
       - sidekiq
     environment: &web-environment
+      NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
       RAILS_ENV: development
       DATABASE_HOST: db
       DATABASE_NAME: task_manager_development
