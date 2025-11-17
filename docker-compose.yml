@@ -15,9 +15,13 @@ services:
       - 8080:8080
     depends_on:
       - db
+      - redis
+      - sidekiq
     environment: &web-environment
       NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+      RAILS_ENV: development
       DATABASE_HOST: db
+      DATABASE_NAME: task_manager_development
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
       BUNDLE_PATH: /bundle_cache
@@ -25,6 +29,7 @@ services:
       GEM_PATH: /bundle_cache
       RAILS_PORT: 3000
       RUBYOPT: -W:no-deprecated -W:no-experimental
+      REDIS_URL: redis://redis
     command: bundle exec rails s -b '0.0.0.0' -p 3000
     env_file:
       - .env
@@ -38,6 +43,19 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:5.0.9-alpine
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bundle exec sidekiq -C /task_manager/config/sidekiq.yml
+    environment: *web-environment
+    volumes: *web-volumes
+    depends_on:
+      - redis
 
 volumes:
   bundle_cache:
