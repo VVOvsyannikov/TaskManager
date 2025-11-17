@@ -32,12 +32,10 @@ group :development, :test do
 end
 
 group :development do
-  gem 'bullet'
-  gem 'letter_opener'
-  gem 'letter_opener_web'
-  gem 'listen', '~> 3.3'
-  gem 'rack-mini-profiler', '~> 2.0'
   gem 'web-console', '>= 4.1.0'
+  gem 'rack-mini-profiler', '~> 2.0'
+  gem 'listen', '~> 3.3'
+  gem 'bullet'
 end
 
 group :test do
