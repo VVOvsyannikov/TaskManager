@@ -8,7 +8,4 @@ class User < ApplicationRecord
   validates :first_name, :last_name, length: { minimum: 2 }
   validates :email, format: { with: /@/ }
   validates :email, uniqueness: true
-
-  validates :password, confirmation: true, on: :password_reset
-  validates :password_confirmation, presence: true, on: :password_reset
 end

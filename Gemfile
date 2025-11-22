@@ -42,8 +42,9 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
-  gem 'webdrivers'
   gem 'simplecov', require: false
   gem 'simplecov-lcov', require: false
+  gem 'webdrivers'
 end

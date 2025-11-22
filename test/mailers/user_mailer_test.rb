@@ -51,7 +51,7 @@ class UserMailerTest < ActionMailer::TestCase
 
   test 'password_reset' do
     user = create(:user)
-    token = Users::PasswordResetService.new(user: user).generate_token!
+    token = SecureRandom.urlsafe_base64
     params = { user: user, token: token }
     email = UserMailer.with(params).password_reset
 

@@ -9,6 +9,9 @@ AllCops:
 Bundler/OrderedGems:
   Enabled: false
 
+Lint/MissingSuper:
+  Enabled: false
+
 Naming/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
