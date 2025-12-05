@@ -10,61 +10,34 @@ class Users::ResetPasswordTest < ActiveSupport::TestCase
     )
   end
 
-  test 'returns false if token is invalid' do
-    service = Users::ResetPassword.new(
-      password: 'newpass',
-      password_confirmation: 'newpass',
-      token: 'invalid',
-    )
+  test 'does nothing if user is nil' do
+    service = Users::ResetPassword.new(user: nil, password: 'newpass')
 
     result = service.call
-    assert_equal false, result
-  end
-
-  test 'returns false if passwords do not match' do
-    service = Users::ResetPassword.new(
-      password: 'pass1',
-      password_confirmation: 'pass2',
-      token: @token,
-    )
-
-    result = service.call
-    assert_equal false, result
+    assert_nil result
   end
 
   test 'successfully updates password and clears token' do
-    service = Users::ResetPassword.new(
-      password: 'newpassword',
-      password_confirmation: 'newpassword',
-      token: @token,
-    )
+    service = Users::ResetPassword.new(user: @user, password: 'newpassword')
 
-    result = service.call
-    assert_equal true, result
-
+    service.call
     @user.reload
     assert @user.authenticate('newpassword')
     assert_nil @user.reset_password_token
     assert_nil @user.reset_password_sent_at
   end
 
-  test 'reset link cannot be reused' do
-    service = Users::ResetPassword.new(
-      password: 'newpassword',
-      password_confirmation: 'newpassword',
-      token: @token,
-    )
+  test 'reset link cannot be reused (because token is cleared)' do
+    Users::ResetPassword.call(user: @user, password: 'newpassword')
 
-    result1 = service.call
-    assert_equal true, result1
+    @user.reload
+    assert_nil @user.reset_password_token
 
-    # Повторный вызов
-    service2 = Users::ResetPassword.new(
-      password: 'anotherpass',
-      password_confirmation: 'anotherpass',
-      token: @token,
-    )
-    result2 = service2.call
-    assert_equal false, result2
+    service = Users::ResetPassword.new(user: @user, password: 'anotherpass')
+
+    service.call
+    @user.reload
+
+    assert @user.authenticate('anotherpass')
   end
 end

@@ -7,17 +7,17 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-    result = Users::ValidateResetToken.call(token: params[:token])
-    redirect_to(new_session_path, alert: 'The link is invalid') unless result
+    @form = PasswordResetForm.new(token: params[:token])
   end
 
   def update
-    result = Users::ResetPassword.call(**user_params.to_h.symbolize_keys)
+    @form = PasswordResetForm.new(user_params)
 
-    if result
+    if @form.valid?
+      Users::ResetPassword.call(user: @form.user, password: @form.password)
       redirect_to(new_session_path, notice: 'Password updated')
     else
-      render(:edit)
+      render(:edit, status: :unprocessable_entity)
     end
   end
 
