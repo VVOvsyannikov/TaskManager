@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   root :to => "web/boards#show"
   get '/up', to: proc { [200, {}, ['OK']] }
 
-  resource :password_resets, only: [:new, :create, :edit] do
-    patch :update, on: :collection
-  end
+  resource :password_resets, only: [:new, :create, :edit, :update]
 
   scope module: :web do
     resource :board, only: :show
